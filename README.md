@@ -1,0 +1,2 @@
+# KaffeeMate
+Kafka Visualizer Tool
