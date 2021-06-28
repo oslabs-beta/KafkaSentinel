@@ -1,2 +1,2 @@
-# KaffeeMate
+# KafSyrup
 Kafka Visualizer Tool
