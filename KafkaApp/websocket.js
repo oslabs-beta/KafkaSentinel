@@ -1,6 +1,7 @@
 //const kafka = require('kafka-node');
 const { Kafka } = require('kafkajs');
 const express = require('express');
+const io = require('socket.io.client'); //unsure we need this line
 const port = 3000;
 const app = express();
 
