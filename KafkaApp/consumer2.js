@@ -1,4 +1,5 @@
 const { Kafka } = require('kafkajs');
+const EventEmitter = require('events');
 
 const username = 'SJ335XIPE5Q5ZPYS'
 const password = 'r4kpR3eQXiEEsH6CVvTfILuDaO3MIDRPgiXSM9fWLd3dVqmWDT4qafdCc9W9aKbF'
@@ -20,6 +21,8 @@ const kafka = new Kafka({
   sasl
 })
 
+//const { REQUEST, FETCH, GROUP_JOIN, START_BATCH_PROCESS} = consumer.events;
+
 // 2.Creating Kafka Consumer and passing group ID.
 const consumer = kafka.consumer({ groupId: 'group-id' });
 
@@ -33,6 +36,17 @@ const runConsumer = async () => {
     eachMessage: async ({ topic, partition, message }) => {
 
       console.log({ "Doing something with the message": topic, partition, message });
+      
+      const { REQUEST, FETCH, GROUP_JOIN, START_BATCH_PROCESS, END_BATCH_PROCESS} = consumer.events;
+      console.log("REQUEST", REQUEST );
+      console.log("FETCH", FETCH);
+      console.log("GROUP_JOIN", GROUP_JOIN);
+      console.log("START_BATCH_PROCESS", START_BATCH_PROCESS);
+      console.log("END_BATCH_PROCESS", END_BATCH_PROCESS);
+
+      await consumer.on(REQUEST, async (e) => {
+        await console.log("Line 48 REQUEST", e)
+      })
   },
   })
 }

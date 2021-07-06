@@ -9,6 +9,15 @@ const password = 'r4kpR3eQXiEEsH6CVvTfILuDaO3MIDRPgiXSM9fWLd3dVqmWDT4qafdCc9W9aK
 const sasl = username && password ? { username, password, mechanism: 'plain' } : null
 const ssl = !!sasl
 
+// const { REQUEST } = producer.events;
+// const prod = producer.on(REQUEST, async (e) => {
+//   const {timestamp, payload } = e;
+//   let time = timeStampe.toString();
+//   // connect to web socket
+//   prod();
+// })
+
+
 
 // const kafka = new Kafka({
 //   clientId: 'npm-slack-notifier',
@@ -74,8 +83,21 @@ const runProducer = async () => {
           messages:
           [{ value: JSON.stringify(message) }],
           })
+
+        
+        const { REQUEST } = producer.events;
+        const prod = producer.on(REQUEST, async (e) => {
+          const {timestamp, payload } = e;
+          // let time = timeStamp.toString();
+          console.log("Line 92 event", e);
+          console.log("timestamp", timestamp);
+          console.log("payload", payload);
+
+          // connect to web socket
+          prod();
+        })
     }
-    console.log("Loop execution finished!)");
+    console.log("Loop execution finished!");
   }
   
   printy();
