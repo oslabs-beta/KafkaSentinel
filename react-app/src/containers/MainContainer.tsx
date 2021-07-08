@@ -5,10 +5,12 @@ import counterBar from '../components/CounterBar.tsx'
 
 const MainContainer = props => {
   return(
+    <div>
     <header/>
     <Metrics/>
     <NavBarContainer/>
     <counterBar/>
+    </div>
   )
 }
 
