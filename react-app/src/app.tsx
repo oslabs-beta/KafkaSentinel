@@ -3,8 +3,12 @@ import MainContainer from './containers/MainContainer.tsx'
 // import './app.scss';
 
 const App = props => {
+  
   return(
+    <div>
+
      <MainContainer/>
+    </div>
   )
 }
 
