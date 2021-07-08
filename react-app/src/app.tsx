@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
-import MainContainer from './containers/MainContainer.tsx'
+import MainContainer from './containers/MainContainer'
 // import './app.scss';
 
 const App = props => {
-  
+
   return(
     <div>
 
