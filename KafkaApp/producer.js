@@ -43,15 +43,17 @@ const kafka = new Kafka(config);
 const producer = kafka.producer();
 // console.log('Line 35')
 const runProducer = async () => {
-  const message = {
-    "event":"package:publish",
-    "package":"@kafkajs/zstd",
-    "version":"1.0.0",
-    "hookOwner":{"username":"nevon"},
-    "payload":{"name":"@kafkajs/zstd"},
-    "change":{"version":"1.0.0"},
-    "time":1603444214995
-  }
+  // const message = {
+  //   "event":"package:publish",
+  //   "package":"@kafkajs/zstd",
+  //   "version":"1.0.0",
+  //   "hookOwner":{"username":"nevon"},
+  //   "payload":{"name":"@kafkajs/zstd"},
+  //   "change":{"version":"1.0.0"},
+  //   "time":1603444214995
+  // }
+
+  const message = { "hot" : "dog"};
   // 3.Connecting producer to kafka broker.
   console.log("Connecting...")
   await producer.connect()
@@ -89,9 +91,9 @@ const runProducer = async () => {
         const prod = producer.on(REQUEST, async (e) => {
           const {timestamp, payload } = e;
           // let time = timeStamp.toString();
-          console.log("Line 92 event", e);
-          console.log("timestamp", timestamp);
-          console.log("payload", payload);
+          // console.log("Line 92 event", e);
+          // console.log("timestamp", timestamp);
+          // console.log("payload", payload);
 
           // connect to web socket
           prod();
