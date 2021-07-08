@@ -1,9 +1,13 @@
-
+import React, { FC, useState } from 'react';
+import MetricGraph from '../components/metricGraph'
 
 const Metrics = props => {
   return(
     //contains however many metric graphs needed
-    <metricGraph/>
+    <div>
+      Meep
+      <MetricGraph/>
+    </div>
   )
 }
 
