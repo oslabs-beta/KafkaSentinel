@@ -41,15 +41,14 @@
 // module.exports = SocketIo;
 
 
+// what is needed to emit a message
+
 const { io } = require ('socket.io-client');
 
 const socket = io("http://localhost:5000");
 
  // client-side
-socket.on("SendMessage", (arg) => {
-  console.log("sure");
-  socket.emit("message", {hot: "dog"})
-});
+socket.emit("SendMessage", {hot: "dog"});
 
 
 // console.log(socket);
