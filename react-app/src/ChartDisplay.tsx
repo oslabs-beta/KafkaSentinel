@@ -9,8 +9,8 @@ import {
   Theme,
 } from "@material-ui/core";
 
-import { Line } from "chartjs";
-import { Bar } from "chartjs";
+import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import "chartjs-plugin-streaming";
 
 
