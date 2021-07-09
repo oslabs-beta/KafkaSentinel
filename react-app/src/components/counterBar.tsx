@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 
-const counterBar = props => {
+const CounterBar = props => {
   return(
     //bar that holds # of topics and partitions
-    <div>Hi</div>
+    <div></div>
   )
 }
 
-export default counterBar;
+export default CounterBar;

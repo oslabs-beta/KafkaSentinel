@@ -1,4 +1,4 @@
-import React { useState, useEffect, FC } from "react";
+import React, { useState, useEffect, FC } from "react";
 import io from "socket.io-client";
 import {
   Container,
@@ -12,7 +12,6 @@ import {
 import { Line } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
 import "chartjs-plugin-streaming";
-import { useEffect } from "react";
 
 const ChartDisplay: FC = ({}) => {
   const useStyles = makeStyles((theme: Theme) =>
@@ -41,10 +40,17 @@ const ChartDisplay: FC = ({}) => {
     },
   })
   );
+
+  const [running, setRunning] = useState('DEAD');
+  const [started, setStarted] = useState(false);
   useEffect(() => {
     console.log('running')
+    if(started) {
+      fetch('http://localhost:5000/consume');
+    }
   })
 
+  const classes = useStyles()
 
 
 }
