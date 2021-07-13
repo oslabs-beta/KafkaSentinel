@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import MetricGraph from '../components/metricGraph'
 const { io } = require ('socket.io-client');
+import LineChart from '../components/lineChart'
 
 
 const Metrics = props => {
@@ -17,6 +18,18 @@ const Metrics = props => {
   const [totalProducerMessages, setTotalProducerMessages] = useState(0);
   const [producedMessagesTotalSize, setProducedMessagesTotalSize] = useState(0);
   
+  const [data, setData] = useState({
+    datasets: [
+      {
+        label: 'Produced Message Quantity',
+        borderColor: "rgb(255, 99, 132)",
+        lineTension: 1,
+        fill: false,
+        borderDash: [8, 4], 
+        data: [],
+      },
+    ],
+  });
   // let totalMessages = 0;
 
 
@@ -41,6 +54,9 @@ const Metrics = props => {
 
 
   useEffect( () => {
+
+    // console.log(data);
+
     // client-side
     socket.on("totalMessagesConsumed", data => {
       setTotalMessagesConsumed(data);
@@ -86,27 +102,38 @@ const Metrics = props => {
 
     // producer sent info
 
-    socket.on("totalProducerMessages", data => {
-      setTotalProducerMessages(data);
+    socket.on("totalProducerMessages", producerData => {
+      setTotalProducerMessages(producerData);
     });
 
-    socket.on("producedMessagesTotalSize", data => {
-      setProducedMessagesTotalSize(data);
+    socket.on("producedMessagesTotalSize", producerData => {
+      setProducedMessagesTotalSize(producerData);
+      const dataCopy = JSON.parse(JSON.stringify(data));
+      dataCopy.datasets[0].data.push({x: Date.now(), y: producerData})
+
+      setData(dataCopy)
+
+      console.log(data.datasets[0].data);
    });
 
   })
 
   return(
     //contains however many metric graphs needed
-    <div className="metricsContainer">
-      <MetricGraph str={"Cluster ID"} metric={clusterId}/>
-      <MetricGraph str={"Number of Brokers"} metric={numOfBrokers}/>
-      <MetricGraph str={"Total Number of Topics"} metric={numOfTopics}/>
-      <MetricGraph str={"Total Partitions"} metric={totalPartitions}/>
-      <MetricGraph str={"Total Messages Produced"} metric={totalProducerMessages}/>
-      <MetricGraph str={"Total Size of Produced Messages"} metric={`${producedMessagesTotalSize} bytes`}/>
-      <MetricGraph str={"Total Messages Consumed"} metric={totalMessagesConsumed}/>
-      <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
+    <div>
+      <div className="metricsContainer">
+        <MetricGraph str={"Cluster ID"} metric={clusterId}/>
+        <MetricGraph str={"Number of Brokers"} metric={numOfBrokers}/>
+        <MetricGraph str={"Total Number of Topics"} metric={numOfTopics}/>
+        <MetricGraph str={"Total Partitions"} metric={totalPartitions}/>
+        <MetricGraph str={"Total Messages Produced"} metric={totalProducerMessages}/>
+        <MetricGraph str={"Total Size of Produced Messages"} metric={`${producedMessagesTotalSize} bytes`}/>
+        <MetricGraph str={"Total Messages Consumed"} metric={totalMessagesConsumed}/>
+        <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
+      </div>
+      <div>
+        <LineChart data={data}/>
+      </div>
     </div>
   )
 }
