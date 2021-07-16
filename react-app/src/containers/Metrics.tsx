@@ -2,6 +2,9 @@ import React, { FC, useState, useEffect } from 'react';
 import MetricGraph from '../components/metricGraph'
 const { io } = require ('socket.io-client');
 import LineChart from '../components/lineChart'
+import { Line } from "react-chartjs-2";
+import "chartjs-plugin-streaming";
+
 
 
 const Metrics = props => {
@@ -17,7 +20,7 @@ const Metrics = props => {
   const [bytesTotalConsumer, setBytesTotalConsumer] = useState(0);
   const [totalProducerMessages, setTotalProducerMessages] = useState(0);
   const [producedMessagesTotalSize, setProducedMessagesTotalSize] = useState(0);
-  
+  const [liveData, setLiveData] = useState(0);
   const [data, setData] = useState({
     datasets: [
       {
@@ -32,6 +35,25 @@ const Metrics = props => {
   });
   // let totalMessages = 0;
 
+const options = {
+  scales: {
+    xAxes: [
+      {
+        type: 'realtime',
+        realtime: {
+          onRefresh: function() {
+            console.log(liveData)
+            data.datasets[0].data.push({
+              x: Date.now(),
+              y: 5 //producer data
+            });
+          },
+          delay: 2000
+        }
+      }
+    ]
+  }
+};
 
   // const { io } = require ('socket.io-client');
 
@@ -109,11 +131,11 @@ const Metrics = props => {
     socket.on("producedMessagesTotalSize", producerData => {
       setProducedMessagesTotalSize(producerData);
       const dataCopy = JSON.parse(JSON.stringify(data));
-      dataCopy.datasets[0].data.push({x: Date.now(), y: producerData})
-
-      setData(dataCopy)
-
-      console.log(data.datasets[0].data);
+      // dataCopy.datasets[0].data.push({y: producerData})
+      
+      // setData(dataCopy)
+      setLiveData(producedMessagesTotalSize);
+      // console.log(data.datasets[0].data);
    });
 
   })
@@ -132,7 +154,7 @@ const Metrics = props => {
         <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
       </div>
       <div>
-        <LineChart data={data}/>
+        <LineChart data={data} options={options}/>
       </div>
     </div>
   )
