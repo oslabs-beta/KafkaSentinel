@@ -1,7 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react'
 import MetricGraph from '../components/metricGraph'
 const { io } = require ('socket.io-client');
-import LineChart from '../components/lineChart'
+import {Line} from 'react-chartjs-2';
 
 
 const Metrics = props => {
@@ -29,33 +29,78 @@ const Metrics = props => {
         data: [],
       },
     ],
+    //labels: [],
   });
-  // let totalMessages = 0;
 
+  const options = {
+  scales: {
+    xAxes: [
+      {
+        type: "realtime",
+        realtime: {
+          duration: 20000,
+          refresh: 500,
+          delay: 1000,
+          onRefresh: null,
+        },
+      },
+    ],
+  },
+  interaction: {
+    intersect: false,
+  },
+  plugins: {
+    title: {
+      display: true,
+      text: "Producer Data Size",
+    },
+  },
+  responsive: true,
+  maintainAspectRatio: true,
+  elements: {
+    line: {
+      tension: 0.4,
+    },
+  },
+};
 
-  // const { io } = require ('socket.io-client');
-
-  // const socket = io("http://localhost:5000");
-  // const [messages, setMessages] = useState(0)
-  // // let totalMessages = 0;
-
-  // useEffect( () => {
-  //   // client-side
-  //   socket.on("totalMessagesConsumed", data => {
-  //     setMessages(data);
-  //   });
-  // })
-  
-  // // client-side
-  // socket.on("message", data => {
-  //   totalProducerBytes = data;
-  // });
-
+  // const options = {
+  //   type: 'realtime',
+  //   scales: {
+  //     x:
+  //       {
+  //         type: 'linear',
+  //         // time: {
+  //         //   unit: 'month'
+  //         // },
+  //         // realtime: {
+  //         //   duration: 20000,
+  //         //   refresh: 500,
+  //         //   delay: 1000,
+  //         //   onRefresh: null,
+  //         // }
+  //       },
+  //   },
+  //   interaction: {
+  //     intersect: false,
+  //   },
+  //   plugins: {
+  //     title: {
+  //       display: true,
+  //       text: "Producer data total size",
+  //     },
+  //   },
+  //   responsive: true,
+  //   maintainAspectRatio: true,
+  //   elements: {
+  //     line: {
+  //       tension: 0.4,
+  //     },
+  //   },
+  // };
 
 
   useEffect( () => {
-
-    // console.log(data);
 
     // client-side
     socket.on("totalMessagesConsumed", data => {
@@ -74,17 +119,6 @@ const Metrics = props => {
 
     // sending object with topicName:NumOfPartitions key:value pairs
     socket.on("topicListInfoObj", data => {
-
-      // data = {
-      //   npm-package-published: 6,
-      //   testing: 6
-      // }
-    
-      // take this info object and convert into 
-      // Topic Name: PartitionName, Number of Partitions:
-      // Topic Name: npm-package-published, Number of Partitions: 6
-      // Topic Name: testing, Number of Partitions: 6    
-
       setTopicListInfoObj(data);
     });
 
@@ -108,9 +142,11 @@ const Metrics = props => {
 
     socket.on("producedMessagesTotalSize", producerData => {
       setProducedMessagesTotalSize(producerData);
+      const ourDate = Date.now();
       const dataCopy = JSON.parse(JSON.stringify(data));
-      dataCopy.datasets[0].data.push({x: Date.now(), y: producerData})
-
+      dataCopy.datasets[0].data = [];
+      dataCopy.datasets[0].data.push({x: ourDate, y: producerData})
+      console.log(ourDate);
       setData(dataCopy)
 
       console.log(data.datasets[0].data);
@@ -119,7 +155,7 @@ const Metrics = props => {
   })
 
   return(
-    //contains however many metric graphs needed
+    //displays metrics and graph
     <div>
       <div className="metricsContainer">
         <MetricGraph str={"Cluster ID"} metric={clusterId}/>
@@ -132,7 +168,7 @@ const Metrics = props => {
         <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
       </div>
       <div>
-        <LineChart data={data}/>
+        <Line options={options} data={data}/>
       </div>
     </div>
   )
