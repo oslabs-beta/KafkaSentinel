@@ -1,15 +1,38 @@
 import React, { FC, useState } from 'react';
 import MainContainer from './containers/MainContainer'
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import Connect from './containers/Connect'
 // import './app.scss';
 
 const App = props => {
+  const [connected, setConnected] = useState(false);
+  const connectedHandler = () => {
+    setConnected(true);
+  }
+
 
   return(
-    <div>
-     <MainContainer/>
-    </div>
+    <Router>
+        {connected ? <Redirect to= '/' /> : <Redirect to="/connect" />}
+      <Switch>
+        <Route exact path="/connect" component={() => <Connect connectedHandler={connectedHandler}/>}/>
+        <Route exact path="/" component={MainContainer}/>
+      </Switch>
+
+    </Router>
   )
 }
+
+
+
+// const App = props => {
+
+//   return(
+//     <div>
+//      <MainContainer/>
+//     </div>
+//   )
+// }
 
 
 

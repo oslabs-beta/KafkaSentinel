@@ -38,11 +38,15 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   devServer: {
-    port: 3000,
+    port: 8080,
     contentBase: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     compress: true,
     hot: true,
     historyApiFallback: true,
+    proxy: {
+      '/connectKafka': 'http://localhost:3000',
+      '/setCookie': 'http://localhost:3000',
+    },
   },
 };
