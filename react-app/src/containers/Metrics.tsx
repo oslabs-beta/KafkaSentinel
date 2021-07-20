@@ -42,7 +42,7 @@ const Metrics = props => {
   const [bytesTotalConsumer, setBytesTotalConsumer] = useState(0);
   const [totalProducerMessages, setTotalProducerMessages] = useState(0);
   const [producedMessagesTotalSize, setProducedMessagesTotalSize] = useState(0);
-  
+  const [liveData, setLiveData] = useState(0);
   const [data, setData] = useState({
     datasets: [
       {
