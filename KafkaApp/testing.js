@@ -224,9 +224,7 @@ consumer.run = async (consumerData) => {
   }
   finally {
     console.log('Finished consumer script')
-
   }
 }
-
 
 module.exports = consumer;

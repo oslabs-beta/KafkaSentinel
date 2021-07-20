@@ -6,7 +6,6 @@ const App = props => {
 
   return(
     <div>
-
      <MainContainer/>
     </div>
   )
