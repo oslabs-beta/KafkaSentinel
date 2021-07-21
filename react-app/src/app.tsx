@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import MainContainer from './containers/MainContainer'
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import Connect from './containers/Connect'
@@ -9,6 +9,22 @@ const App = props => {
   const connectedHandler = () => {
     setConnected(true);
   }
+
+  useEffect(() => {
+    console.log("in useEffect line 14 of app.tsx")
+    // fetch request to cookie controller to check current cookie values 
+    fetch('/checkCookie')
+      .then(response => response.json())
+      .then(data => {
+        console.log("hello")
+        if(data.connected === true){
+          connectedHandler();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  })
 
 
   return(

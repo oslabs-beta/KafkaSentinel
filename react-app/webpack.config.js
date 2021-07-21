@@ -41,12 +41,14 @@ module.exports = {
     port: 8080,
     contentBase: path.resolve(__dirname, 'dist'),
     publicPath: '/',
+    host: 'localhost',
     compress: true,
     hot: true,
     historyApiFallback: true,
     proxy: {
       '/connectKafka': 'http://localhost:3000',
       '/setCookie': 'http://localhost:3000',
+      '/checkCookie': 'http://localhost:3000'
     },
   },
 };
