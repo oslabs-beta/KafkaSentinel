@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "dev": "concurrently \"webpack serve --open\" \"nodemon ./server/server.ts\""
+    "dev": "concurrently \"webpack serve --open\" \"nodemon ./server/server.js\""
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,9 @@
     "chart.js": "^3.4.1",
     "chartjs-plugin-streaming": "^2.0.0",
     "concurrently": "^6.2.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "kafkajs": "^1.15.0",
     "nodemon": "^2.0.12",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.0.3",

@@ -7,15 +7,21 @@ const Connect = props => {
 
   let history = useHistory();
 
-  const connectHandler = async (event) => {
+  const connectHandler = (event) => {
     event.preventDefault();
     // console.log('username: ', event.target);
     const username = document.getElementById('userName');
     const password = document.getElementById('userPassword');
     const broker = document.getElementById('broker');
     // let loginSuccess = false;
+    // props.connectedHandler();
+    //       history.push('/');
 
-    fetch('/connect', {
+    console.log("username", username.value);
+    console.log("password", password.value);
+    console.log("broker", broker.value);
+
+    fetch('/connectKafka', {
       method: 'POST',
       headers: {'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'},
@@ -23,7 +29,7 @@ const Connect = props => {
     })
       .then(response => response.json())
       .then(data => {
-        if(data){
+        if(data.connected === true){
           props.connectedHandler();
           history.push('/');
         }
@@ -31,30 +37,6 @@ const Connect = props => {
       .catch((err) => {
         console.log(err);
       })
-    
-
-
-    // props.connectedHandler();
-    //       history.push('/');
-
-
-
-    // fetch('/connect', {
-    //   method: 'POST',
-    //   headers: {'Accept': 'application/json, text/plain, */*',
-    //     'Content-Type': 'application/json'},
-    //   body: JSON.stringify({'username': username.value, 'password': password.value, 'broker': broker.value}),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     if(data){
-    //       props.connectedHandler();
-    //       history.push('/');
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
     return;
   }
 
@@ -69,14 +51,14 @@ const Connect = props => {
         <form action="login" method="post" id="loginForm">
           <div>
         <label htmlFor="userName">USERNAME</label>
-        <input type="text" id="userName" name="userName" required/>
+        <input type="text" id="userName" name="userName" />
       </div>
       <div>
         <label htmlFor="userPassword">PASSWORD</label>
-        <input type="password" id="userPassword" name="userPassword" required/>
+        <input type="password" id="userPassword" name="userPassword"/>
       </div>
       <div>
-        <label htmlFor="userPassword">BROKER</label>
+        <label htmlFor="broker">BROKER</label>
         <input type="broker" id="broker" name="broker" required/>
       </div>
       <div id="form-Buttons">
