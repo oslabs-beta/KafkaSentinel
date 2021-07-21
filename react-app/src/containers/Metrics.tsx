@@ -1,7 +1,9 @@
 import React, { FC, useState, useEffect } from 'react';
 import MetricGraph from '../components/metricGraph'
 const { io } = require ('socket.io-client');
-
+import LineChart from '../components/LineChart'
+import { Line } from "react-chartjs-2";
+// import { actions, config } from '../components/realTimeGraph'
 
 const Metrics = props => {
 
@@ -98,15 +100,21 @@ const Metrics = props => {
 
   return(
     //contains however many metric graphs needed
-    <div className="metricsContainer">
-      <MetricGraph str={"Cluster ID"} metric={clusterId}/>
-      <MetricGraph str={"Number of Brokers"} metric={numOfBrokers}/>
-      <MetricGraph str={"Total Number of Topics"} metric={numOfTopics}/>
-      <MetricGraph str={"Total Partitions"} metric={totalPartitions}/>
-      <MetricGraph str={"Total Messages Produced"} metric={totalProducerMessages}/>
-      <MetricGraph str={"Total Size of Produced Messages"} metric={`${producedMessagesTotalSize} bytes`}/>
-      <MetricGraph str={"Total Messages Consumed"} metric={totalMessagesConsumed}/>
-      <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
+    <div>
+      <div className="metricsContainer">
+        <MetricGraph str={"Cluster ID"} metric={clusterId}/>
+        <MetricGraph str={"Number of Brokers"} metric={numOfBrokers}/>
+        <MetricGraph str={"Total Number of Topics"} metric={numOfTopics}/>
+        <MetricGraph str={"Total Partitions"} metric={totalPartitions}/>
+        <MetricGraph str={"Total Messages Produced"} metric={totalProducerMessages}/>
+        <MetricGraph str={"Total Size of Produced Messages"} metric={`${producedMessagesTotalSize} bytes`}/>
+        <MetricGraph str={"Total Messages Consumed"} metric={totalMessagesConsumed}/>
+        <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
+      </div>
+      <div>
+        <LineChart/>
+        {/* <Line actions=actions /> */}
+      </div>
     </div>
   )
 }

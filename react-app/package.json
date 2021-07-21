@@ -14,6 +14,9 @@
   "dependencies": {
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.8",
+    "chart.js": "^3.4.1",
+    "chartjs-adapter-luxon": "^1.0.0",
+    "chartjs-plugin-streaming": "^2.0.0",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.0.3",
     "react-dom": "^17.0.2",

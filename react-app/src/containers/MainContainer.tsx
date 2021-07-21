@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import Header from '../components/header.tsx'
+// import Header from '../components/header.tsx'
 import Metrics from './Metrics.tsx'
 import NavBarContainer from './NavBarContainer.tsx'
 import CounterBar from '../components/counterBar.tsx'
@@ -11,7 +11,7 @@ const MainContainer = props => {
     <div>
       <div className="header">
         <h1>KafSyrup</h1>
-        <Header/>
+        {/* <Header/> */}
         <h2>Metrics</h2>
       </div>
     <Metrics/>
