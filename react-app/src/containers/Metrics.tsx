@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from 'react'
 import MetricGraph from '../components/metricGraph'
 const { io } = require ('socket.io-client');
 import {Line} from 'react-chartjs-2';
+import LineChart from '../components/LineChart'
 
 
 const GRAPH_DATA_BASE = {
@@ -501,11 +502,7 @@ const updateDataFromSocket = producerData => _setData([...data, producerData])
   // },[])
 
   return(
-<<<<<<< HEAD
     //contains however many metric graphs needed
-=======
-    //displays metrics and graph
->>>>>>> 89ac4d861098397dcc7784a9a86759b9959469b1
     <div>
       <div className="metricsContainer">
         <MetricGraph str={"Cluster ID"} metric={clusterId}/>
@@ -518,13 +515,8 @@ const updateDataFromSocket = producerData => _setData([...data, producerData])
         <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
       </div>
       <div>
-<<<<<<< HEAD
         <LineChart/>
         {/* <Line actions=actions /> */}
-=======
-        <Line options={options} data={_graphData}/>
-        {/* <Line options={options} data={data}/> */}
->>>>>>> 89ac4d861098397dcc7784a9a86759b9959469b1
       </div>
     </div>
   )

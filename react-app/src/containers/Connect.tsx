@@ -14,8 +14,31 @@ const Connect = props => {
     const password = document.getElementById('userPassword');
     const broker = document.getElementById('broker');
     // let loginSuccess = false;
-    props.connectedHandler();
+
+    fetch('/connect', {
+      method: 'POST',
+      headers: {'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'},
+      body: JSON.stringify({'username': username.value, 'password': password.value, 'broker': broker.value}),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if(data){
+          props.connectedHandler();
           history.push('/');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    
+
+
+    // props.connectedHandler();
+    //       history.push('/');
+
+
+
     // fetch('/connect', {
     //   method: 'POST',
     //   headers: {'Accept': 'application/json, text/plain, */*',
