@@ -19,8 +19,6 @@ const App = props => {
 
 
 
-
-
 // interface AppProps {
 //   initialCount?: number;
 // }
