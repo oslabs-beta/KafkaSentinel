@@ -1,6 +1,7 @@
-FROM node:10.1 
-WORKDIR /usr/src/app
+FROM node:14.16.1
+WORKDIR /usr/src/reactapp
 COPY ./reactapp /usr/src/reactapp
+COPY package*.json /usr/src/reactapp
 RUN  npm install 
 RUN node run dev
 EXPOSE 3000
