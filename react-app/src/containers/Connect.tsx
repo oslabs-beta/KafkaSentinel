@@ -9,17 +9,11 @@ const Connect = props => {
 
   const connectHandler = (event) => {
     event.preventDefault();
-    // console.log('username: ', event.target);
+    
     const username = document.getElementById('userName');
     const password = document.getElementById('userPassword');
     const broker = document.getElementById('broker');
-    // let loginSuccess = false;
-    // props.connectedHandler();
-    //       history.push('/');
-
-    // console.log("username", username.value);
-    // console.log("password", password.value);
-    // console.log("broker", broker.value);
+    
 
     fetch('/connectKafka', {
       method: 'POST',
@@ -66,10 +60,7 @@ const Connect = props => {
     </form>
     </div>
     </div>
-  // <div>
-  //   <h1> Login Test {username}</h1> 
-  //   <button onClick={() =>  {history.push('/user')}}>User</button>
-  // </div>
+  
 )
 
 }
