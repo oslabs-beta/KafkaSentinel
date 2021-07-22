@@ -68,63 +68,6 @@ kafkaController.getClusterInfo = async (req,res,next) => {
   // emit total number of partitions
   await socket.emit("totalPartitions", totalPartitions);
 
-
-  // // // Start consumer
-  // const consumer = kafka.consumer({ groupId: 'kafka-sentinel-group' });
-
-  // // // Connect to Kafka instance
-  // await consumer.connect()
-
-  // // // subscribe to every topic
-  // // topicMetaData.topics.forEach(topic => {
-  // //   // await consumer.subscribe({ topic: `${topic.name}`, fromBeginning: true })
-  // //   console.log("hihi", topic.name)
-  // // })
-
-  // const topics = topicMetaData.topics;
-
-  // for(let i = 0; i < topics.length; i++) {
-  //   await consumer.subscribe({ topic: `${topics[i].name}`, fromBeginning: true })
-  // }
-
-  // // await consumer.subscribe({ topic: 'npm-package-published', fromBeginning: true })
-  // // await consumer.subscribe({ topic: 'testing', fromBeginning: true })
-
-  // const idLocker = {};
-  // let bytesTotalConsumer = 0;
-  // let totalMessagesConsumed = 0;
-
-  // await consumer.run({
-  //   eachMessage: async ({ topic, partition, message }) => {
-
-  //     const { REQUEST, FETCH, GROUP_JOIN, START_BATCH_PROCESS, END_BATCH_PROCESS} = consumer.events;
-  //     const consumerEvent = async () => await consumer.on(REQUEST, async (e) => {
-  //       if(!idLocker[e.id]){
-  //         idLocker[e.id] = true;
-  //         bytesTotalConsumer += e.payload.size
-  //       } 
-  //       // await console.log("Line 48 REQUEST", e.id)
-  //       await consumerEvent();
-  //     })
-      
-  //     await console.log("consumer total bytes", bytesTotalConsumer)
-      
-  //     // await console.log("event object", e)
-
-
-  //     // emit total bytes consumed by consumer
-  //     await socket.emit("bytesTotalConsumer", bytesTotalConsumer);
-
-  //     // increment total messages consumed
-  //     totalMessagesConsumed += 1;
-
-  //     // emit total messages consumed
-  //     await socket.emit("totalMessagesConsumed", totalMessagesConsumed);
-      
-  //     // console.log("In consumer.run in kafkaController, line 114");
-  //   },
-  // })
-
   await admin.disconnect();
 
   next();
@@ -151,28 +94,12 @@ kafkaController.startConsumers = async (req, res, next) => {
     sasl
   })
 
-  // const admin = kafka.admin()
-  // await admin.connect()
-  // const topicList = await admin.listTopics();
-  // const topicMetaData = await admin.fetchTopicMetadata({ topics: topicList })
-
   // // Start consumer
   const consumer = kafka.consumer({ groupId: 'kafka-sentinel-group' });
   const producer = kafka.producer();
   // // Connect to Kafka instance
   await consumer.connect()
   await producer.connect()
-  // // subscribe to every topic
-  // topicMetaData.topics.forEach(topic => {
-  //   // await consumer.subscribe({ topic: `${topic.name}`, fromBeginning: true })
-  //   console.log("hihi", topic.name)
-  // })
-
-  // const topics = topicMetaData.topics;
-
-  // for(let i = 0; i < topics.length; i++) {
-  //   await consumer.subscribe({ topic: `${topics[i].name}`, fromBeginning: true })
-  // }
 
   await consumer.subscribe({ topic: 'npm-package-published', fromBeginning: true })
   // await consumer.subscribe({ topic: 'testing', fromBeginning: true })
@@ -191,43 +118,13 @@ kafkaController.startConsumers = async (req, res, next) => {
   //  await consumerEvent();
   })
   consumerEvent();
-
-  // start listening to producer
-
-  
-  // const prodReq = { REQUEST } = producer.events;
- 
-  // const prod = async () => await producer.on(producer.events.REQUEST, async (e) => {
-    
-  //   await console.log("Line 202 event", e);
-
-  //   //emit current number of producer messages produced
-  //   await socket.emit("totalProducerMessages", 1);
-  //   // emit size of message
-  //   await socket.emit("producedMessagesTotalSize", e.payload.size);
-  //   prod();
-  // });
-  // prod();
   
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       console.log("another message")
-      // const { REQUEST, FETCH, GROUP_JOIN, START_BATCH_PROCESS, END_BATCH_PROCESS} = consumer.events;
-      // const consumerEvent = async () => await consumer.on(REQUEST, async (e) => {
-      //   if(!idLocker[e.id]){
-      //     idLocker[e.id] = true;
-      //     bytesTotalConsumer += e.payload.size
-      //   } 
-      //   // await console.log("Line 48 REQUEST", e.id)
-      // //  await consumerEvent();
-      // })
-      // consumerEvent();
 
       console.log("consumer total bytes", bytesTotalConsumer)
-      
-      // await console.log("event object", e)
-
 
       // emit total bytes consumed by consumer
       await socket.emit("bytesTotalConsumer", bytesTotalConsumer);
@@ -239,13 +136,8 @@ kafkaController.startConsumers = async (req, res, next) => {
       // emit total messages consumed
       await socket.emit("totalMessagesConsumed", totalMessagesConsumed);
       
-      // console.log("promise message count", await Promise.all(messagesConsumed))
-      // setTimeout(async () => console.log("promise message count", await Promise.all(messagesConsumed)), 10000)
-      // console.log("In consumer.run in kafkaController, line 114");
     },
   })
-  
-  // await admin.disconnect();
   
   return next();
 }
