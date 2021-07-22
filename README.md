@@ -1,7 +1,8 @@
 <!-- PROJECT LOGO -->
-![banner](https://i.imgur.com/dso31sS.png)
+
 <br />
 <p align=“center”>
+  <img src="https://i.imgur.com/dso31sS.png" width="400" height="500"/>
   <a href=“https://github.com/oslabs-beta/KafkaSentinel”>
     <img src=“https://i.imgur.com/dso31sS.png” length=“350px” width=“350px”>
   </a>
