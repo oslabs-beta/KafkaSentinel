@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "dev": "concurrently \"webpack serve --open\" \"nodemon ./server/server.js\""
+    "dev": "concurrently \"webpack serve --open\" \"nodemon ./server/server.js\" \"node ./server/websocketKafkaNode.js\""
   },
   "keywords": [],
   "author": "",
@@ -26,9 +26,11 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.7",
-    "socket.io-client": "^4.1.2",
+    "socket.io": "^4.1.3",
+    "socket.io-client": "^4.1.3",
     "ts-node": "^10.1.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "css-loader": "^5.2.6",

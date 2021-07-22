@@ -2,7 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const connectController = require('./controllers/connectController');
 const cookieController = require('./controllers/cookieController');
-// const bodyParser = require('body-parser');
+const kafkaController = require('./controllers/kafkaController');
+const bodyParser = require('body-parser');
 
 
 const PORT = 3000;
@@ -25,12 +26,19 @@ app.post('/connectKafka', connectController.checkConnection, cookieController.cr
 
 app.use('/checkCookie', cookieController.checkCookie, connectController.checkConnection, (req, res, next) => {
   try {
-    res.status(200).json({ connected: res.locals.connected });
+    return res.status(200).json({ connected: res.locals.connected });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 });
 
+app.use('/getClusterInfo', kafkaController.getClusterInfo, kafkaController.startConsumers, (req, res, next) => {
+  try {
+    return res.status(200).json({ connected: true });
+  } catch (error) {
+    return next(error);
+  }
+});
 
 
 app.get('/', (req, res, next) => {

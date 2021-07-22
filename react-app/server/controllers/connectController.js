@@ -11,7 +11,7 @@ module.exports = {
   
     res.locals.connected = false;
   
-    console.log("In connect controller");
+    // console.log("In connect controller");
   
     try {
       const kafka = new Kafka({
