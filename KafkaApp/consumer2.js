@@ -90,21 +90,18 @@ const runConsumer = async () => {
 
       const { REQUEST, FETCH, GROUP_JOIN, START_BATCH_PROCESS, END_BATCH_PROCESS} = consumer.events;
       const consumerEvent = async () => await consumer.on(REQUEST, async (e) => {
-        
         if(!idLocker[e.id]){
           idLocker[e.id] = true;
           bytesTotalConsumer += e.payload.size
         } 
-        
-        await console.log("event object", e)
-
         await console.log("Line 48 REQUEST", e.id)
-        await console.log("consumer total bytes", bytesTotalConsumer)
-
-        // await socket.emit("bytesTotalConsumer", bytesTotalConsumer);
+        await consumerEvent();
       })
-      await console.log("line 208 bytes", bytesTotalConsumer);
-      await consumerEvent();
+      
+      await console.log("consumer total bytes", bytesTotalConsumer)
+      
+      // await console.log("event object", e)
+
 
       // emit total bytes consumed by consumer
       await socket.emit("bytesTotalConsumer", bytesTotalConsumer);

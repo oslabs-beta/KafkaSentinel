@@ -1,15 +1,86 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import MainContainer from './containers/MainContainer'
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import Connect from './containers/Connect'
 // import './app.scss';
 
 const App = props => {
+  const [connected, setConnected] = useState(false);
+  const connectedHandler = () => {
+    setConnected(true);
+  }
+
+  useEffect(() => {
+    console.log("in useEffect line 14 of app.tsx")
+    // fetch request to cookie controller to check current cookie values 
+    fetch('/checkCookie')
+      .then(response => response.json())
+      .then(data => {
+        // console.log("hello")
+        if(data.connected === true){
+          connectedHandler();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  })
+
+  if(connected == true) {
+    console.log("hello from line 29 in app.tsx")
+    // const ioSocket = require('socket.io')(5000, {
+    //   cors: {
+    //     origin: '*',
+    //     // origin: ['http://localhost:5000'],
+    //     credentials: true
+    //   }
+    // });
+
+    // ioSocket.on('connection', socket => {
+    //   console.log(socket.id)
+
+    //   socket.on("disconnect", () => {
+    //     console.log(`Client ${socket.id} disconnected`);
+    //   });
+    // });
+
+    fetch('/checkCookie')
+      .then(response => response.json())
+      .then(data => {
+        // console.log("hello")
+        if(data.connected === true){
+          connectedHandler();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+
+  }
 
   return(
-    <div>
-     <MainContainer/>
-    </div>
+    <Router>
+        {connected ? <Redirect to= '/' /> : <Redirect to="/connect" />}
+      <Switch>
+        <Route exact path="/connect" component={() => <Connect connectedHandler={connectedHandler}/>}/>
+        <Route exact path="/" component={MainContainer}/>
+      </Switch>
+
+    </Router>
   )
 }
+
+
+
+// const App = props => {
+
+//   return(
+//     <div>
+//      <MainContainer/>
+//     </div>
+//   )
+// }
 
 
 
