@@ -467,19 +467,19 @@ const updateDataFromSocket = producerData => _setData([...data, producerData])
     });
 
     socket.on("bytesTotalConsumer", data => {
-      setBytesTotalConsumer(data);
+      setBytesTotalConsumer(bytesTotalConsumer + data);
     });
 
     // producer sent info
 
     socket.on("totalProducerMessages", producerData => {
-      setTotalProducerMessages(producerData);
+      setTotalProducerMessages(totalProducerMessages + producerData);
     });
 
     socket.on("producedMessagesTotalSize", producerData => {
       // console.log('_data before adding new message: ', _data);
 
-      setProducedMessagesTotalSize(producerData);
+      setProducedMessagesTotalSize(producedMessagesTotalSize + producerData);
       // let time = '';
       // const d = Date.now()
       // time += d.getSeconds()+" "+d.getMilliseconds();
@@ -516,13 +516,13 @@ const updateDataFromSocket = producerData => _setData([...data, producerData])
         <MetricGraph str={"Number of Brokers"} metric={numOfBrokers}/>
         <MetricGraph str={"Total Number of Topics"} metric={numOfTopics}/>
         <MetricGraph str={"Total Partitions"} metric={totalPartitions}/>
-        <MetricGraph str={"Total Messages Produced"} metric={totalProducerMessages}/>
-        <MetricGraph str={"Total Size of Produced Messages"} metric={`${producedMessagesTotalSize} bytes`}/>
+        {/* <MetricGraph str={"Total Messages Produced"} metric={totalProducerMessages}/> */}
+        {/* <MetricGraph str={"Total Size of Produced Messages"} metric={`${producedMessagesTotalSize} bytes`}/> */}
         <MetricGraph str={"Total Messages Consumed"} metric={totalMessagesConsumed}/>
         <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
       </div>
-      <div>
-        {/* <LineChart/> */}
+      <div className="LineChart">
+        <LineChart/>
         {/* <Line actions=actions /> */}
       </div>
     </div>

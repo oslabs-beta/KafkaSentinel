@@ -4,7 +4,7 @@ import Metrics from './Metrics'
 // const { Kafka } = require('kafkajs');
 
 const MainContainer = props => {
-
+  
   useEffect(() => {
     fetch('/getClusterInfo')
       .then(response => response.json())
@@ -14,7 +14,7 @@ const MainContainer = props => {
       .catch((err) => {
         console.log(err);
       })
-  })
+  }, [])
 
   // const username = 'SJ335XIPE5Q5ZPYS'
   // const password = 'r4kpR3eQXiEEsH6CVvTfILuDaO3MIDRPgiXSM9fWLd3dVqmWDT4qafdCc9W9aKbF'

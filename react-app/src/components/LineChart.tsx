@@ -329,11 +329,15 @@ const LineChart = props => {
   const [totalProducerMessages, setTotalProducerMessages] = useState(0);
   const [producedMessagesTotalSize, setProducedMessagesTotalSize] = useState(0);
   console.log("lineChart body");
+
+  const [bytesTotalConsumer, setBytesTotalConsumer] = useState(0);
+
+
   const [data, setData] = useState({
     labels: [],
     datasets: [
       {
-        label: "First dataset",
+        label: "Total Size of Consumed Messages",
         data: [],
         fill: true,
         backgroundColor: "rgba(75,192,192,0.2)",
@@ -349,21 +353,21 @@ const LineChart = props => {
   });    
 
   useEffect(() => {
-    socket.on("producedMessagesTotalSize", async producerData => {
+    socket.on("bytesTotalConsumer", consumerData => {
 
-      console.log(producerData);
+      console.log("hello from line 358", consumerData);
 
-      setProducedMessagesTotalSize(producerData);
+      setBytesTotalConsumer(consumerData);
 
       let today = new Date();
       let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-      let newData = await JSON.parse(JSON.stringify(data));
+      let newData = JSON.parse(JSON.stringify(data));
 
       console.log('newData', newData);
 
       newData.labels.push(time);
-      newData.datasets[0].data.push(producedMessagesTotalSize);
+      newData.datasets[0].data.push(bytesTotalConsumer);
 
       setData(newData);
     });

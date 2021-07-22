@@ -17,9 +17,9 @@ const Connect = props => {
     // props.connectedHandler();
     //       history.push('/');
 
-    console.log("username", username.value);
-    console.log("password", password.value);
-    console.log("broker", broker.value);
+    // console.log("username", username.value);
+    // console.log("password", password.value);
+    // console.log("broker", broker.value);
 
     fetch('/connectKafka', {
       method: 'POST',
@@ -42,19 +42,19 @@ const Connect = props => {
 
 
   return (
-    <div className="login-wrapper">
+    <div>
       <div id='formHeader'><h1>KafkaSentinel</h1></div>  
-      <div>
+      <div className="login-wrapper">
         <form action="login" method="post" id="loginForm">
-          <div>
+          <div className="broker">
         <label htmlFor="userName">USERNAME</label>
         <input type="text" id="userName" name="userName" />
       </div>
-      <div>
+      <div className="broker">
         <label htmlFor="userPassword">PASSWORD</label>
         <input type="password" id="userPassword" name="userPassword"/>
       </div>
-      <div>
+      <div className="broker">
         <label htmlFor="broker">BROKER</label>
         <input type="broker" id="broker" name="broker" required/>
       </div>

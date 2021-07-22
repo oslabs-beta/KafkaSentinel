@@ -3,7 +3,7 @@ const cookieController = {};
 cookieController.createCookie = (req, res, next) => {
   const { username, password, broker } = req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   if(res.locals.connected == true) {
     res.cookie('username', username);
@@ -24,7 +24,7 @@ cookieController.checkCookie = (req,res,next) => {
   req.body.password = password;
   req.body.broker = broker;
 
-  console.log("in checkCookie", req.body);
+  // console.log("in checkCookie", req.body);
 
   next();
 }
