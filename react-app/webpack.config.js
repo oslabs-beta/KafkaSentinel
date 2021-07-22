@@ -36,6 +36,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    // fallback: {
+    //   util: require.resolve("util/")
+    // }
   },
   devServer: {
     port: 8080,
@@ -48,7 +51,8 @@ module.exports = {
     proxy: {
       '/connectKafka': 'http://localhost:3000',
       '/setCookie': 'http://localhost:3000',
-      '/checkCookie': 'http://localhost:3000'
+      '/checkCookie': 'http://localhost:3000',
+      '/getClusterInfo': 'http://localhost:3000',
     },
   },
 };

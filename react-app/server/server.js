@@ -2,7 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const connectController = require('./controllers/connectController');
 const cookieController = require('./controllers/cookieController');
-// const bodyParser = require('body-parser');
+const kafkaController = require('./controllers/kafkaController');
+const bodyParser = require('body-parser');
 
 
 const PORT = 3000;
@@ -31,6 +32,13 @@ app.use('/checkCookie', cookieController.checkCookie, connectController.checkCon
   }
 });
 
+app.use('/getClusterInfo', kafkaController.getClusterInfo, (req, res, next) => {
+  try {
+    res.status(200).json({ connected: true });
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 app.get('/', (req, res, next) => {

@@ -3,6 +3,13 @@ import MetricGraph from '../components/metricGraph'
 const { io } = require ('socket.io-client');
 import {Line} from 'react-chartjs-2';
 import LineChart from '../components/LineChart'
+// const ioSocket = require('socket.io')(5000, {
+//   cors: {
+//     origin: '*',
+//     // origin: ['http://localhost:5000'],
+//     credentials: true
+//   }
+// });
 
 
 const GRAPH_DATA_BASE = {
@@ -429,77 +436,77 @@ const updateDataFromSocket = producerData => _setData([...data, producerData])
 
 */
 
-  // useEffect( () => {
+  useEffect( () => {
 
-  //   // client-side
-  //   socket.on("totalMessagesConsumed", data => {
-  //     setTotalMessagesConsumed(data);
-  //   });
+    // client-side
+    socket.on("totalMessagesConsumed", data => {
+      setTotalMessagesConsumed(data);
+    });
 
-  //   // send name of cluster from confluent
-  //   socket.on("clusterId", data => {
-  //     setClusterId(data);
-  //   });
+    // send name of cluster from confluent
+    socket.on("clusterId", data => {
+      setClusterId(data);
+    });
 
-  //   // send total number of brokers in cluster
-  //   socket.on("numOfBrokers", data => {
-  //     setNumOfBrokers(data);
-  //   });
+    // send total number of brokers in cluster
+    socket.on("numOfBrokers", data => {
+      setNumOfBrokers(data);
+    });
 
-  //   // sending object with topicName:NumOfPartitions key:value pairs
-  //   socket.on("topicListInfoObj", data => {
-  //     setTopicListInfoObj(data);
-  //   });
+    // sending object with topicName:NumOfPartitions key:value pairs
+    socket.on("topicListInfoObj", data => {
+      setTopicListInfoObj(data);
+    });
 
-  //   socket.on("numOfTopics", data => {
-  //     setNumOfTopics(data);
-  //   });
+    socket.on("numOfTopics", data => {
+      setNumOfTopics(data);
+    });
 
-  //   socket.on("totalPartitions", data => {
-  //     setTotalPartitions(data);
-  //   });
+    socket.on("totalPartitions", data => {
+      setTotalPartitions(data);
+    });
 
-  //   socket.on("bytesTotalConsumer", data => {
-  //     setBytesTotalConsumer(data);
-  //   });
+    socket.on("bytesTotalConsumer", data => {
+      setBytesTotalConsumer(data);
+    });
 
-  //   // producer sent info
+    // producer sent info
 
-  //   socket.on("totalProducerMessages", producerData => {
-  //     setTotalProducerMessages(producerData);
-  //   });
+    socket.on("totalProducerMessages", producerData => {
+      setTotalProducerMessages(producerData);
+    });
 
-  //   socket.on("producedMessagesTotalSize", producerData => {
-  //     console.log('_data before adding new message: ', _data);
+    socket.on("producedMessagesTotalSize", producerData => {
+      // console.log('_data before adding new message: ', _data);
 
-  //     setProducedMessagesTotalSize(producerData);
-  //     let time = '';
-  //     const d = Date.now()
-  //     time += d.getSeconds()+" "+d.getMilliseconds();
-  //     const datum = {
-  //       x: time,
-  //       y: producerData,
-  //     };
+      setProducedMessagesTotalSize(producerData);
+      // let time = '';
+      // const d = Date.now()
+      // time += d.getSeconds()+" "+d.getMilliseconds();
+      // const datum = {
+      //   x: time,
+      //   y: producerData,
+      // };
 
-  //     _setData([
-  //       ..._data,
-  //       datum
-  //     ]);
+      // _setData([
+      //   ..._data,
+      //   datum
+      // ]);
 
-  //     console.log('Datum: ', datum);
-  //     console.log('_data: ', _data);
+      // console.log('Datum: ', datum);
+      // console.log('_data: ', _data);
 
-  //     const dataCopy = JSON.parse(JSON.stringify(data));
-  //     // dataCopy.datasets[0].data = [];
-  //     console.log(dataCopy.datasets[0].data);
-  //     dataCopy.datasets[0].data.push({x: ourDate, y: producerData})
-  //     console.log(ourDate);
-  //     setData(dataCopy)
+      // const dataCopy = JSON.parse(JSON.stringify(data));
+      // // dataCopy.datasets[0].data = [];
+      // console.log(dataCopy.datasets[0].data);
+      // dataCopy.datasets[0].data.push({x: ourDate, y: producerData})
+      // console.log(ourDate);
+      // setData(dataCopy)
 
-  //     console.log(data.datasets[0].data);
-  //  });
+      // console.log(data.datasets[0].data);
+   });
 
-  // },[])
+  },[])
 
   return(
     //contains however many metric graphs needed
@@ -515,7 +522,7 @@ const updateDataFromSocket = producerData => _setData([...data, producerData])
         <MetricGraph str={"Total Size of Consumed Messages"} metric={`${bytesTotalConsumer} bytes`}/>
       </div>
       <div>
-        <LineChart/>
+        {/* <LineChart/> */}
         {/* <Line actions=actions /> */}
       </div>
     </div>

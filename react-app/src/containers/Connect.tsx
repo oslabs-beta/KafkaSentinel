@@ -41,9 +41,6 @@ const Connect = props => {
   }
 
 
-
-
-
   return (
     <div className="login-wrapper">
       <div id='formHeader'><h1>KafkaSentinel</h1></div>  

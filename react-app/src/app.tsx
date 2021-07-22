@@ -16,7 +16,7 @@ const App = props => {
     fetch('/checkCookie')
       .then(response => response.json())
       .then(data => {
-        console.log("hello")
+        // console.log("hello")
         if(data.connected === true){
           connectedHandler();
         }
@@ -26,6 +26,38 @@ const App = props => {
       })
   })
 
+  if(connected == true) {
+    console.log("hello from line 29 in app.tsx")
+    // const ioSocket = require('socket.io')(5000, {
+    //   cors: {
+    //     origin: '*',
+    //     // origin: ['http://localhost:5000'],
+    //     credentials: true
+    //   }
+    // });
+
+    // ioSocket.on('connection', socket => {
+    //   console.log(socket.id)
+
+    //   socket.on("disconnect", () => {
+    //     console.log(`Client ${socket.id} disconnected`);
+    //   });
+    // });
+
+    fetch('/checkCookie')
+      .then(response => response.json())
+      .then(data => {
+        // console.log("hello")
+        if(data.connected === true){
+          connectedHandler();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+
+  }
 
   return(
     <Router>
