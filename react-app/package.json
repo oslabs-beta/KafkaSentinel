@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "dev": "concurrently \"webpack serve --open\" \"nodemon ./server/server.js\" \"node ../KafkaApp/websocketKafkaNode.js\""
+    "dev": "concurrently \"webpack serve --open\" \"nodemon ./server/server.js\" \"node ./server/websocketKafkaNode.js\""
   },
   "keywords": [],
   "author": "",
