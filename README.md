@@ -2,7 +2,7 @@
 <br />
 <p align=“center”>
   <a href=“https://github.com/oslabs-beta/KafkaSentinel”>
-    <img src=“logo” alt=“Logo” length=“350px” width=“350px”>
+    <img src=“https://i.imgur.com/dso31sS.png” alt=“Logo” length=“350px” width=“350px”>
   </a>
   <h3 align=“center”>KafkaSentinel</h3>
   <p align=“center”>
