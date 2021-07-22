@@ -37,7 +37,9 @@ const Connect = props => {
 
   return (
     <div>
-      <div id='formHeader'><h1>KafkaSentinel</h1></div>  
+      <div className="header">
+          <img className="logo" src='https://i.imgur.com/dso31sS.png'/>
+      </div>
       <div className="login-wrapper">
         <form action="login" method="post" id="loginForm">
           <div className="broker">

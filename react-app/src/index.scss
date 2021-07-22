@@ -2,7 +2,7 @@ body {
   // background-color: rgb(101, 164, 185);
   color: white;
 
-  background: url(https://media.discordapp.net/attachments/598349784096440332/862799167939674122/kafsyrupBackground.JPG?width=1600&height=900) no-repeat center center fixed; 
+  background: url(https://i.imgur.com/p43YlP9.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -17,6 +17,11 @@ h1 {
 h2 {
   font-size: 2rem;
   text-shadow: 2px 2px #8a27b1
+}
+
+.logo {
+  height: 300px;
+  width: auto;
 }
 
 .header {

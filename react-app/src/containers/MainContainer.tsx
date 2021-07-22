@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import Metrics from './Metrics'
+// const image = require( "../assets/KafkaSentinelLogo.jpg")
 
 const MainContainer = props => {
   
@@ -14,15 +15,15 @@ const MainContainer = props => {
       })
   }, [])
 
-  
+
 
   return(
     <div>
       <div className="header">
-        {/* <div>
-          
-        </div> */}
-        <h1>KafkaSentinel</h1>
+        <div>
+          <img className="logo" src='https://i.imgur.com/dso31sS.png'/>
+        </div>
+        {/* <h1>KafkaSentinel</h1> */}
         <h2>Metrics</h2>
       </div>
     <Metrics/>
