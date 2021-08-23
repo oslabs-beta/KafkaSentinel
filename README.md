@@ -10,7 +10,7 @@
   <p align=“center”>
     Kafka Cluster Monitoring
     <br /><br />
-    <a href=“https://kafkasentinel.io/”><strong>website</strong></a>
+    <a href=“website”><strong>website</strong></a>
     <br />
     <br />
   </p>
